@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopimate</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+</head>
+<body>
+    <main class="container">
+        <div>
+            <h1 style="text-align: center;">Shopimate</h1>
+            <hr>
+        </div>
+        <h3>Create section</h3>
+        <hr>
+        <div class="grid">
+            <form>
+                <div>
+                    <h6>Schema settings</h6>
+                    <hr>
+                </div>
+                <div class="form-elm">
+                    <fieldset class="grid">
+                        <label>
+                        Name
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="name"
+                            required
+                        />
+                        </label>
+                        <label>
+                        Tag
+                        <select name="tag" id="tag" required>
+                            <option value="section">section</option>
+                            <option value="div">div</option>
+                        </select>
+                        </label>
+                    </fieldset>
+                    <input
+                        type="submit"
+                        value="Create"
+                    />
+                </div>
+            </form>
+            <div>
+                <div>
+                    <h6>Schema</h6>
+                    <hr>
+                </div>
+                <div>
+                    <textarea name="json" id="json-data"></textarea>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="assets//js/main.js"></script>
+</body>
+</html>
+
