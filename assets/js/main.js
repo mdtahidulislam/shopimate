@@ -38,17 +38,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 {% endstyle %}
 
+<!-- section specific CSS -->
+{% stylesheet %}
+
+{% endstylesheet %}
+
 <!-- section HTML structure -->
 <div>
     <h1>${name}</h1>
 </div>
 
-<!-- section specific CSS -->
-{% stylesheet %}
-
 <!-- section specific JS -->
-{% endstylesheet %}
-
 {% javascript %}
 
 {% endjavascript %}
