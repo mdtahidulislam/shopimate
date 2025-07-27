@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopimate</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <main class="container">
@@ -21,24 +22,114 @@
                     <hr>
                 </div>
                 <div class="form-elm">
-                    <fieldset class="grid">
-                        <label>
-                        Name
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="name"
-                            required
-                        />
-                        </label>
-                        <label>
-                        Tag
-                        <select name="tag" id="tag" required>
-                            <option value="section">section</option>
-                            <option value="div">div</option>
-                        </select>
-                        </label>
+                    <fieldset>
+                        <div class="grid">
+                            <div>
+                                <label>
+                                    Name
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        placeholder="name"
+                                        required
+                                    />
+                                </label>
+                                <label>
+                                    Class
+                                    <input
+                                        type="text"
+                                        name="classes"
+                                        placeholder="CSS classes"
+                                    />
+                                </label>
+                                <label>
+                                    Max blocks <small>(0 = no limit, maximum value = 50)</small>
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        step="1"
+                                        max="50"
+                                        name="max_blocks"
+                                        placeholder="How many blocks can be added"
+                                    />
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    Tag
+                                    <select name="tag" id="tag" required>
+                                        <option value="section">div</option>
+                                        <option value="article">article</option>
+                                        <option value="aside">aside</option>
+                                        <option value="footer">footer</option>
+                                        <option value="header">header</option>
+                                        <option value="section">section</option>
+                                    </select>
+                                </label>
+                                <label>
+                                    Limit <small>(0 = no limit)</small>
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        step="1"
+                                        name="limit"
+                                        placeholder="How many times can be added"
+                                    />
+                                </label>
+                                <div>
+                                    Restriction Type
+                                    <div class="grid">
+                                        <div style="gap:0px;border-right: 1px solid #cfd5e2;">
+                                            <label>
+                                                <input
+                                                    type="radio"
+                                                    name="restrict"
+                                                    value="enabled_on"
+                                                    checked
+                                                    onclick="document.getElementById('restriction-fields').style.display = 'block'"
+                                                />
+                                                Enable On
+                                            </label>
+                                            <label>
+                                                <input
+                                                    type="radio"
+                                                    name="restrict"
+                                                    value="disabled_on"
+                                                />
+                                                Disable On
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="restriction-fields">
+                                    <label>
+                                        Templates <small>(comma-separated, use * for all)</small>
+                                        <input
+                                            type="text"
+                                            name="templates"
+                                            placeholder="index, collection, product, *"
+                                        />
+                                    </label>
+                                    <label>
+                                        Groups <small>(comma-separated)</small>
+                                        <input
+                                            type="text"
+                                            name="groups"
+                                            placeholder="header, footer"
+                                        />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </fieldset>
+                    <div>
+                        <h6>Section Settings</h6>
+                        <hr>
+                        <div id="settings-container">
+                            <!-- Settings will be added here -->
+                        </div>
+                        <button type="button" id="add-setting" class="secondary outline">Add Setting</button>
+                    </div>
                     <input
                         type="submit"
                         value="Create"
@@ -51,12 +142,12 @@
                     <hr>
                 </div>
                 <div>
-                    <textarea name="json" id="json-data"></textarea>
+                    <textarea name="json" id="json-data" rows="20" readonly></textarea>
                 </div>
             </div>
         </div>
     </main>
-    <script src="assets//js/main.js"></script>
+    <script src="assets/js/schema-builder.js"></script>
 </body>
 </html>
 

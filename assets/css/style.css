@@ -1,0 +1,88 @@
+/* Form styling */
+:host, :root {
+    --pico-font-size: 100% !important;
+}
+.setting-group {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--form-element-border-color);
+    border-radius: var(--border-radius);
+}
+
+.setting-group .grid {
+    gap: 1.5rem;
+}
+
+.setting-group button.remove-setting {
+    margin-top: 1rem;
+    width: auto;
+}
+
+#json-data {
+    width: 100%;
+    font-family: monospace;
+    white-space: pre;
+    resize: none;
+    height: 600px;
+}
+
+/* Grid adjustments */
+.grid > * {
+    margin-bottom: 0;
+}
+
+.grid > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Form elements */
+fieldset {
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+fieldset .grid {
+    gap: 1.5rem;
+}
+
+label {
+    margin-bottom: 0;
+}
+
+/* Settings container */
+#settings-container, #restriction-fields {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+#restriction-fields input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+#add-setting {
+    margin-bottom: 1rem;
+    width: auto;
+}
+
+/* Radio buttons grid */
+/* .grid label:has(input[type="radio"]) {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+} */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr !important;
+    }
+}
