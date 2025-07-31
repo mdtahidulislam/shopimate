@@ -168,7 +168,15 @@ class SchemaBuilder {
 
     saveFormData() {
         const data = this.collectFormData();
-        const settings = this.generateSettings(data);
+        // Only include settings that are currently in the form
+        const currentSettingGroups = this.settingsContainer.querySelectorAll('.setting-group');
+        const settings = Array.from(currentSettingGroups).map(group => ({
+            id: group.querySelector('[name="setting_id[]"]').value,
+            label: group.querySelector('[name="setting_label[]"]').value,
+            type: group.querySelector('[name="setting_type[]"]').value,
+            default: group.querySelector('[name="setting_default[]"]').value || ''
+        }));
+        
         const formData = {
             ...data,
             settings
