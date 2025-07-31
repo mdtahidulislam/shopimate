@@ -10,6 +10,9 @@ class SchemaBuilder {
         this.settingsContainer = document.getElementById('settings-container');
         this.jsonOutput = document.getElementById('json-data');
         this.addSettingBtn = document.getElementById('add-setting');
+        this.removeSettingBtns = this.settingsContainer.querySelectorAll('.remove-setting');
+        console.log(this.removeSettingBtns);
+        
         
         this.initializeEventListeners();
         this.loadSavedData();
@@ -17,6 +20,9 @@ class SchemaBuilder {
 
     initializeEventListeners() {
         this.addSettingBtn.addEventListener('click', () => this.createSettingFields());
+        this.removeSettingBtns.forEach(btn => {
+            btn.addEventListener('click', this.removeSettingsGroup())
+        })
         this.form.addEventListener('submit', (e) => this.handleFormSubmit(e));
         
         // Save form data on input changes
@@ -51,9 +57,23 @@ class SchemaBuilder {
                     </label>
                 </div>
             </div>
-            <button type="button" class="remove-setting contrast outline" onclick="this.parentElement.remove()">Remove</button>
+            <button type="button" class="remove-setting contrast outline">Remove</button>
         `;
         this.settingsContainer.appendChild(settingDiv);
+        
+        // Add event listener to the new remove button
+        const removeBtn = settingDiv.querySelector('.remove-setting');
+        removeBtn.addEventListener('click', this.removeSettingsGroup());
+    }
+
+    removeSettingsGroup() {
+        return (event) => {
+            const settingGroup = event.target.closest('.setting-group');
+            if (settingGroup) {
+                settingGroup.remove();
+                this.saveFormData();
+            }
+        };
     }
 
     collectFormData() {
