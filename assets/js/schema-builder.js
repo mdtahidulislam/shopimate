@@ -12,11 +12,15 @@ class SchemaBuilder {
         this.addSettingBtn = document.getElementById('add-setting');
         
         this.initializeEventListeners();
+        this.loadSavedData();
     }
 
     initializeEventListeners() {
         this.addSettingBtn.addEventListener('click', () => this.createSettingFields());
         this.form.addEventListener('submit', (e) => this.handleFormSubmit(e));
+        
+        // Save form data on input changes
+        this.form.addEventListener('input', () => this.saveFormData());
     }
 
     createSettingFields() {
@@ -126,6 +130,50 @@ class SchemaBuilder {
         }
 
         return schema;
+    }
+
+    loadSavedData() {
+        const savedData = localStorage.getItem('schemaFormData');
+        if (savedData) {
+            const data = JSON.parse(savedData);
+            
+            // Restore basic fields
+            this.form.querySelector('[name="name"]').value = data.name || '';
+            this.form.querySelector('[name="tag"]').value = data.tag || '';
+            this.form.querySelector('[name="classes"]').value = data.classes || '';
+            this.form.querySelector('[name="limit"]').value = data.limit || '';
+            this.form.querySelector('[name="max_blocks"]').value = data.max_blocks || '';
+            
+            // Restore restriction fields
+            if (data.restrict) {
+                const restrictRadio = this.form.querySelector(`[name="restrict"][value="${data.restrict}"]`);
+                if (restrictRadio) restrictRadio.checked = true;
+            }
+            this.form.querySelector('[name="templates"]').value = data.templates || '';
+            this.form.querySelector('[name="groups"]').value = data.groups || '';
+            
+            // Restore settings
+            if (data.settings && data.settings.length > 0) {
+                data.settings.forEach(setting => {
+                    this.createSettingFields();
+                    const lastGroup = this.settingsContainer.lastElementChild;
+                    lastGroup.querySelector('[name="setting_id[]"]').value = setting.id;
+                    lastGroup.querySelector('[name="setting_label[]"]').value = setting.label;
+                    lastGroup.querySelector('[name="setting_type[]"]').value = setting.type;
+                    lastGroup.querySelector('[name="setting_default[]"]').value = setting.default || '';
+                });
+            }
+        }
+    }
+
+    saveFormData() {
+        const data = this.collectFormData();
+        const settings = this.generateSettings(data);
+        const formData = {
+            ...data,
+            settings
+        };
+        localStorage.setItem('schemaFormData', JSON.stringify(formData));
     }
 
     handleFormSubmit(e) {
